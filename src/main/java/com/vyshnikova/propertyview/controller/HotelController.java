@@ -43,4 +43,9 @@ public class HotelController {
                                       @RequestParam(required = false) List<String> amenities) {
         return service.search(name, brand, city, country, amenities);
     }
+
+    @PostMapping("/hotels/{id}/amenities")
+    public void addAmenities(@PathVariable Long id, @RequestBody List<String> amenities) {
+        service.addAmenities(id, amenities);
+    }
 }

@@ -48,6 +48,19 @@ public class HotelService {
         return mapper.toShortDto(saved);
     }
 
+    @Transactional
+    public void addAmenities(Long id, List<String> amenities) {
+        Hotel hotel = repository.findById(id)
+                .orElseThrow(() -> new HotelNotFoundException(id));
+
+        for (String amenity : amenities) {
+            //Новые для отеля удобства  добавляются, а дубли пропускаются
+            if (!hotel.getAmenities().contains(amenity)) {
+                hotel.getAmenities().add(amenity);
+            }
+        }
+    }
+
     @Transactional(readOnly = true)
     public List<HotelShortDto> search(String name, String brand, String city,
                                       String country, List<String> amenities) {

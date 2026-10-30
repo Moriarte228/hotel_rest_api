@@ -26,4 +26,8 @@ public class GlobalExceptionHandler {
         problem.setProperty("errors", errors);
         return problem;
     }
+    @ExceptionHandler(UnsupportedHistogramParamException.class)
+    public ProblemDetail handleUnsupportedParam(UnsupportedHistogramParamException e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
 }
